@@ -2,16 +2,17 @@ from __future__ import print_function
 import os
 from data import Dataset
 import torch
+from torch import nn
 from torch.utils import data
 import torch.nn.functional as F
-from models import *
+from models import focal_loss, metrics, resnet
 import torchvision
 from utils import Visualizer, view_model
 import torch
 import numpy as np
 import random
 import time
-from config import Config
+from config import config
 from torch.nn import DataParallel
 from torch.optim.lr_scheduler import StepLR
 from test import *
@@ -25,7 +26,7 @@ def save_model(model, save_path, name, iter_cnt):
 
 if __name__ == '__main__':
 
-    opt = Config()
+    opt = config.Config()
     if opt.display:
         visualizer = Visualizer()
     device = torch.device("cuda")

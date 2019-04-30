@@ -11,7 +11,7 @@ from models import *
 import torch
 import numpy as np
 import time
-from config import Config
+from config import config
 from torch.nn import DataParallel
 
 
