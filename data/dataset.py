@@ -17,6 +17,7 @@ class Dataset(data.Dataset):
 
         with open(os.path.join(data_list_file), 'r') as fd:
             imgs = fd.readlines()
+        # data/1.png
 
         imgs = [os.path.join(root, img[:-1]) for img in imgs]
         self.imgs = np.random.permutation(imgs)

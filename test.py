@@ -61,7 +61,7 @@ def get_featurs(model, test_list, batch_size=10):
             cnt += 1
 
             data = torch.from_numpy(images)
-            data = data.to(torch.device("cuda"))
+            #data = data.to(torch.device("cuda"))
             output = model(data)
             output = output.data.cpu().numpy()
 
@@ -150,7 +150,7 @@ def lfw_test(model, img_paths, identity_list, compair_list, batch_size):
 
 if __name__ == '__main__':
 
-    opt = Config()
+    opt = config.Config()
     if opt.backbone == 'resnet18':
         model = resnet_face18(opt.use_se)
     elif opt.backbone == 'resnet34':
@@ -160,8 +160,8 @@ if __name__ == '__main__':
 
     model = DataParallel(model)
     # load_model(model, opt.test_model_path)
-    model.load_state_dict(torch.load(opt.test_model_path))
-    model.to(torch.device("cuda"))
+    model.load_state_dict(torch.load(opt.test_model_path, map_location='cpu'))
+    #model.to(torch.device("cuda"))
 
     identity_list = get_lfw_list(opt.lfw_test_list)
     img_paths = [os.path.join(opt.lfw_root, each) for each in identity_list]
